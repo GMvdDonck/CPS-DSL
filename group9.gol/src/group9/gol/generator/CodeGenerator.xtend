@@ -36,6 +36,11 @@ class CodeGenerator {
 						}
 					}
 				}
+				
+				// TODO: fill this arraylist with coordinates of cells
+				public static void setInitialBoard(ArrayList<Point> initialCells) {
+					
+				}
 			}'''
 			
 //			TODO: This has got to work without naming each rule in the xtext directly

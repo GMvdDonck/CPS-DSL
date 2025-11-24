@@ -9,7 +9,12 @@ Game:
 Board:
 	'Width' w = INT
 	'Height' h = INT
-	'Living' l = INT;
+	'Living' cells += Cell+; // Should have at least 1 living cell or not? Not like 1 does anything more than 0 would
+	
+Cell:
+	x = INT
+	','
+	y = INT;
 
 Rules:
 	'LiveRule' lRule = LiveRule
