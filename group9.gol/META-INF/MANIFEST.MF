@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: group9.gol
+Bundle-ManifestVersion: 2
+Bundle-Name: group9.gol
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: group9.gol; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.19.0",
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.40.0",
+ org.eclipse.emf.common,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Export-Package: group9.gol.parser.antlr.internal,
+ group9.gol.serializer,
+ group9.gol.parser.antlr,
+ group9.gol.goLDSL.impl,
+ group9.gol.goLDSL,
+ group9.gol.scoping,
+ group9.gol,
+ group9.gol.validation,
+ group9.gol.generator,
+ group9.gol.services,
+ group9.gol.goLDSL.util
+Import-Package: org.apache.log4j
