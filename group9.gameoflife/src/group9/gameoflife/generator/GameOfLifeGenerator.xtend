@@ -5,7 +5,6 @@ import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 import group9.gameoflife.gameOfLife.Model
-import group9.gameoflife.gameOfLife.Condition
 import group9.gameoflife.gameOfLife.Comparator
 
 class GameOfLifeGenerator extends AbstractGenerator {
@@ -39,18 +38,38 @@ public class RulesOfLife {
                 if (gameBoard[i+1][j])   { surrounding++; }
                 if (gameBoard[i+1][j+1]) { surrounding++; }
                 
-                // Check Survival Rules (Apply to currently Alive cells)
-                if (gameBoard[i][j]) {
-                    if (false «FOR rule : model.game.rules.survivalRules» || (surrounding «rule.op.toJavaOp» «rule.value»)«ENDFOR») {
-                        survivingCells.add(new Point(i-1, j-1));
-                    }
-                } 
-                // Check Birth Rules (Apply to currently Dead cells)
-                else {
-                    if (false «FOR rule : model.game.rules.birthRules» || (surrounding «rule.op.toJavaOp» «rule.value»)«ENDFOR») {
-                        survivingCells.add(new Point(i-1, j-1));
-                    }
+                /* Live rules */
+                «FOR r : model.game.rules.birthRules SEPARATOR " else "»
+                if ((!gameBoard[i][j]) && (surrounding «r.op.toJavaOp» «r.value»)) {
+                	survivingCells.add(new Point(i-1, j-1));
                 }
+                «ENDFOR»
+                
+                /* Death rules */
+				«FOR r : model.game.rules.deathRules SEPARATOR " else "»
+				if ((gameBoard[i][j]) && (surrounding «r.op.toJavaOp» «r.value»)) {
+					continue;
+				}
+                «ENDFOR»
+                
+                /* Survival rules */
+                «FOR r : model.game.rules.survivalRules SEPARATOR " else "»
+                if ((gameBoard[i][j]) && (surrounding «r.op.toJavaOp» «r.value»)) {
+                	survivingCells.add(new Point(i-1, j-1));
+                }
+                «ENDFOR»
+                
+«««                if (gameBoard[i][j]) {
+«««                    if (false «FOR rule : model.game.rules.survivalRules» || (surrounding «rule.op.toJavaOp» «rule.value»)«ENDFOR») {
+«««                        survivingCells.add(new Point(i-1, j-1));
+«««                    }
+«««                } 
+«««                // Check Birth Rules (Apply to currently Dead cells)
+«««                else {
+«««                    if (false «FOR rule : model.game.rules.birthRules» || (surrounding «rule.op.toJavaOp» «rule.value»)«ENDFOR») {
+«««                        survivingCells.add(new Point(i-1, j-1));
+«««                    }
+«««                }
             }
         }
     }

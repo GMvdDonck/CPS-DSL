@@ -4,10 +4,12 @@
 package group9.gameoflife.validation;
 
 import org.eclipse.xtext.validation.Check;
-import group9.gameoflife.gameOfLife.Condition;
-import group9.gameoflife.gameOfLife.Grid;
+
 import group9.gameoflife.gameOfLife.Cell;
+import group9.gameoflife.gameOfLife.Condition;
+import group9.gameoflife.gameOfLife.EvolutionRules;
 import group9.gameoflife.gameOfLife.GameOfLifePackage;
+import group9.gameoflife.gameOfLife.Grid;
 
 public class GameOfLifeValidator extends AbstractGameOfLifeValidator {
 
@@ -39,6 +41,28 @@ public class GameOfLifeValidator extends AbstractGameOfLifeValidator {
             error("Cell coordinates must be non-negative",
                   GameOfLifePackage.Literals.CELL__X); // or CELL__Y
         }
+    }
+    
+    @Check
+    public void checkEmptyRules(EvolutionRules rules) {
+    	if (rules.getSurvivalRules().isEmpty()
+    			&& rules.getDeathRules().isEmpty()
+    			&& rules.getBirthRules().isEmpty()) {
+    		warning("No rules defined.", null);
+    	}
+    }
+    
+    @Check
+    public void checkSameRules(EvolutionRules rules) {
+    	for (Condition sCond : rules.getSurvivalRules()) {
+    		for (Condition dCond : rules.getDeathRules()) {
+    			if ((sCond.getValue() == dCond.getValue())
+    					&& sCond.getOp() == dCond.getOp()) {
+    				info("Death rule \"" + dCond.getOp() + " " + dCond.getValue() + "\" is already a survival rule.",
+    						GameOfLifePackage.Literals.EVOLUTION_RULES__DEATH_RULES);
+    			}
+    		}
+    	}
     }
 }
 

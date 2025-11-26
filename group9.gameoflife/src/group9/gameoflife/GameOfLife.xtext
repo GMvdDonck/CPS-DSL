@@ -17,9 +17,10 @@ Game:
 EvolutionRules:
 	{EvolutionRules} 'EvolutionRules' '{'
 		// Stay alive for these conditions
-		('StayAlive' 'if' 'neighbours' survivalRules+=Condition ( 'or' survivalRules+=Condition )* )?
+		('Survive' 'if' 'neighbours' survivalRules+=Condition ( 'or' survivalRules+=Condition )* )?
 		// Become alive for these conditions
 		('BecomeAlive' 'if' 'neighbours' birthRules+=Condition ( 'or' birthRules+=Condition )* )?
+		('Die' 'if' 'neighbours' deathRules+=Condition ( 'or' deathRules+=Condition )* )?
 	'}'
 ;
 
