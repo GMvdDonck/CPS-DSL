@@ -1,0 +1,42 @@
+grammar group9.gameoflife.GameOfLife with org.eclipse.xtext.common.Terminals
+
+generate gameOfLife "http://www.gameoflife.group9/GameOfLife"
+
+// Compiler construction-esque
+Model:
+	game=Game
+;
+
+Game:
+	'GameOfLife' name=ID '{'
+		rules=EvolutionRules
+		grid=Grid
+	'}'
+;
+
+EvolutionRules:
+	{EvolutionRules} 'EvolutionRules' '{'
+		// Stay alive for these conditions
+		('StayAlive' 'if' 'neighbours' survivalRules+=Condition ( 'or' survivalRules+=Condition )* )?
+		// Become alive for these conditions
+		('BecomeAlive' 'if' 'neighbours' birthRules+=Condition ( 'or' birthRules+=Condition )* )?
+	'}'
+;
+
+Condition:
+	op=Comparator value=INT
+;
+
+enum Comparator:
+	EQ='=' | LT='<' | GT='>'
+;
+
+Grid:
+	{Grid} 'InitialGrid' '{'
+		(cells+=Cell)*
+	'}'
+;
+
+Cell:
+	'Cell' '(' x=INT ',' y=INT ')'
+;

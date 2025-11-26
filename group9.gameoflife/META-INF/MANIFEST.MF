@@ -1,0 +1,29 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: group9.gameoflife
+Bundle-ManifestVersion: 2
+Bundle-Name: group9.gameoflife
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: group9.gameoflife; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.xtext.util,
+ org.eclipse.emf.common,
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Export-Package: group9.gameoflife.services,
+ group9.gameoflife.gameOfLife,
+ group9.gameoflife.serializer,
+ group9.gameoflife.parser.antlr,
+ group9.gameoflife.parser.antlr.internal,
+ group9.gameoflife.gameOfLife.util,
+ group9.gameoflife.generator,
+ group9.gameoflife,
+ group9.gameoflife.gameOfLife.impl,
+ group9.gameoflife.validation,
+ group9.gameoflife.scoping
+Import-Package: org.apache.log4j
